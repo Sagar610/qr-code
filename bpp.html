@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        #qrCode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>QR Code By Sagar</h2>
+    <form id="qrForm">
+        <label for="roomNumber">Enter Room Number:</label>
+        <input type="text" id="roomNumber" placeholder="e.g., 3.17" oninput="generateQRCode()">
+    </form>
+
+    <div id="qrCode">
+        <!-- QR code will be displayed here -->
+    </div>
+
+    <script>
+        function generateQRCode() {
+            var roomNumber = document.getElementById('roomNumber').value;
+            if (roomNumber) {
+                var qrData = `{"Site":"Portsoken Street","Room":"${roomNumber}"}`;
+                var encodedData = encodeURIComponent(qrData);
+                var qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodedData}`;
+                document.getElementById('qrCode').innerHTML = `<img src="${qrUrl}" alt="QR Code">`;
+            } else {
+                document.getElementById('qrCode').innerHTML = `<p style="color:red;">Please enter a room number.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
